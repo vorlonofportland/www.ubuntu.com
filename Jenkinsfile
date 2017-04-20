@@ -1,3 +1,1 @@
-runDemo {
-
-}
+runDemo
