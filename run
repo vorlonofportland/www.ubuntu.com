@@ -3,7 +3,7 @@
 set -euo pipefail
 
 # Define the versions of the two docker images
-django_image="canonicalwebteam/django:v1.2.2"
+django_image="canonicalwebteam/django:v2.0.0-candidate"
 yarn_image="canonicalwebteam/yarn:v0.2.0"
 
 # Usage instructions
@@ -152,7 +152,7 @@ docker_django () {
   # Run Django using the docker image
   docker_run  \
     --name ${container_name} \
-    --volume ${project}-dependencies:/usr/local/lib/python2.7/site-packages  `# Store dependencies in a docker volume`  \
+    --volume ${project}-dependencies:/usr/local/lib/python3.6/site-packages  `# Store dependencies in a docker volume`  \
     --publish ${PORT}:${PORT}  `# Export the server port`  \
     --env PORT=${PORT}  `# Set the port correctly`  \
     ${DETACH} `# Detach from session if flag is set`  \
