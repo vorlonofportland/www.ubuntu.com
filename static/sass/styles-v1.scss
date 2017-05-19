@@ -97,3 +97,13 @@ html {
 .p-button--neutral.is-compact {
   padding: $sp-x-small $sp-small;
 }
+
+// Add spacing for nested lists
+// This is a change to be made upstream in vanilla-framework
+// https://github.com/vanilla-framework/vanilla-framework/issues/960
+li {
+  ol, ul, .p-list {
+    margin-top: $sp-medium;
+    padding-left: $sp-medium;
+  }
+}
