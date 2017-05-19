@@ -12,6 +12,7 @@
   @include ubuntu-p-inline-list--small;
   @include ubuntu-p-inline-list-middot-small;
   @include ubuntu-p-is-ticked;
+  @include ubuntu-p-nested-counter-lists;
 }
 
 @mixin ubuntu-p-is-ticked {
