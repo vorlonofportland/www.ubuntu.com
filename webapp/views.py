@@ -75,7 +75,28 @@ class ResourcesView(TemplateView):
     def _get_resources(self):
         topic = self.request.GET.get('topic')
         content = self.request.GET.get('content')
+        search = self.request.GET.get('search')
         feed_items = {}
+        if search:
+            api_url = (
+                    '{api_url}/posts?_embed'
+                    '&search={search}&{resource_filter}'
+                )
+            api_url = api_url.format(
+                    api_url=self.API_URL,
+                    search=search,
+                    resource_filter=self.RESOURCE_FILTER,
+                )
+            group_name = 'search'
+            feed_items[group_name] = {}
+            feed_items[group_name]['items'] = get_json_feed_content(
+                api_url,
+            )
+            group_title = 'Search results for "{search}"'.format(
+                search=search,
+            )
+            feed_items[group_name]['group_name'] = group_title
+            return feed_items
         if topic or content:
             if not content:
                 category_id = str(self.GROUPS[topic]['id'])
@@ -151,6 +172,9 @@ class ResourcesView(TemplateView):
         context['items'] = self._get_resources()
         context['topic_slug'] = self.request.GET.get('topic')
         context['content_slug'] = self.request.GET.get('content')
+        context['search_slug'] = ''
+        if (self.request.GET.get('search')):
+            context['search_slug'] = self.request.GET.get('search')
         return context
 
 
